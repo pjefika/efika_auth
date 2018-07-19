@@ -46,6 +46,17 @@ public class UsuarioModel implements Serializable{
     @JsonIgnore
     @OneToMany
     private List<PerfilModel> perfis;
+    private boolean atualizado;
+
+    public boolean isAtualizado() {
+        return atualizado;
+    }
+
+    public void setAtualizado(boolean atualizado) {
+        this.atualizado = atualizado;
+    }
+    
+    
 
     public List<PerfilModel> getPerfis() {
         return perfis;

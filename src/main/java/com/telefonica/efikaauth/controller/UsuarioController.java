@@ -40,6 +40,7 @@ public class UsuarioController {
     public UsuarioModel create(@RequestBody UsuarioModel usuario) throws Exception {
         try {
             usuario.setId(0);
+            usuario.setAtualizado(true);
             UsuarioModel usuarioCriado = usuarioRepository.save(usuario);
             return usuarioCriado;
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
@@ -66,6 +67,7 @@ public class UsuarioController {
             if (!usuariobanco.getMatricula().equalsIgnoreCase(usuario.getMatricula())) {
                 usuario.setMatricula(usuariobanco.getMatricula());
             }
+            usuario.setAtualizado(true);
             UsuarioModel usuarioCriado = usuarioRepository.save(usuario);
             return usuarioCriado;
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
