@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import jdk.nashorn.internal.objects.NativeArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author A0077749
  */
+//@CrossOrigin(origins = {"*"}, allowCredentials = "true")
 @RequestMapping("/usuario")
 @RestController
 @Service
@@ -120,5 +122,11 @@ public class UsuarioController {
             method = RequestMethod.GET)
     public List<Setores> getSetores(){
         return Arrays.asList(Setores.values());
+    }
+    
+    @RequestMapping(value = "/setor",
+            method = RequestMethod.GET)
+    public String getSetorUsuario(String usuario){
+        return usuarioRepository.findByUsuario(usuario).getSetor().toString();
     }
 }
