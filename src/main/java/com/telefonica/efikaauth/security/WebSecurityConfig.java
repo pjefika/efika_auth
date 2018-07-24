@@ -32,7 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable().authorizeRequests()
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers(HttpMethod.POST, "/logar").permitAll()
+                .antMatchers("/usuario/setor/**").permitAll()
                 .antMatchers("/usuario/**").authenticated()
+                
                 .and()
                 .addFilterBefore(new SimpleCORSFilter(),
                         UsernamePasswordAuthenticationFilter.class)

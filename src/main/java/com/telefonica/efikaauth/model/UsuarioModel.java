@@ -6,7 +6,7 @@
 package com.telefonica.efikaauth.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.telefonica.efikaauth.model.Enuns.Setores;
+import com.telefonica.efikaauth.model.Enuns.Strin;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -16,23 +16,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author A0077749
  */
 @Entity
-public class UsuarioModel implements Serializable{
-    
+public class UsuarioModel implements Serializable {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(unique=true, length = 10)
+    @Column(unique = true, length = 10)
     private String matricula;
     //@NotNull
     private String nome;
@@ -42,11 +40,59 @@ public class UsuarioModel implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date dt_nascimento;
     private String senha;
-    private Setores setor;
+    private String setor;
     @JsonIgnore
     @OneToMany
     private List<PerfilModel> perfis;
+    @JsonIgnore
     private boolean atualizado;
+    private String telefone;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dt_expira;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dt_criacao;
+    private int criadoPor;
+
+    /*
+    Cidade
+        id
+        Nome
+        sigla
+    Cluster
+    */
+    public Date getDt_expira() {
+        return dt_expira;
+    }
+
+    public void setDt_expira(Date dt_expira) {
+        this.dt_expira = dt_expira;
+    }
+
+    public Date getDt_criacao() {
+        return dt_criacao;
+    }
+
+    public void setDt_criacao(Date dt_criacao) {
+        this.dt_criacao = dt_criacao;
+    }
+
+    public int getCriadoPor() {
+        return criadoPor;
+    }
+
+    public void setCriadoPor(int criadoPor) {
+        this.criadoPor = criadoPor;
+    }
+
+    
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
     public boolean isAtualizado() {
         return atualizado;
@@ -55,8 +101,6 @@ public class UsuarioModel implements Serializable{
     public void setAtualizado(boolean atualizado) {
         this.atualizado = atualizado;
     }
-    
-    
 
     public List<PerfilModel> getPerfis() {
         return perfis;
@@ -66,11 +110,11 @@ public class UsuarioModel implements Serializable{
         this.perfis = perfis;
     }
 
-    public Setores getSetor() {
+    public String getSetor() {
         return setor;
     }
 
-    public void setSetor(Setores area) {
+    public void setSetor(String area) {
         this.setor = area;
     }
 
@@ -105,8 +149,7 @@ public class UsuarioModel implements Serializable{
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
+
     public Integer getId() {
         return id;
     }
@@ -130,6 +173,5 @@ public class UsuarioModel implements Serializable{
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    
+
 }

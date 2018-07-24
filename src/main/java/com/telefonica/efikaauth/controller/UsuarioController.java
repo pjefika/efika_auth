@@ -5,7 +5,7 @@
  */
 package com.telefonica.efikaauth.controller;
 
-import com.telefonica.efikaauth.model.Enuns.Setores;
+import com.telefonica.efikaauth.model.Enuns.Strin;
 import com.telefonica.efikaauth.model.UsuarioModel;
 import com.telefonica.efikaauth.repository.UsuarioRepository;
 import java.util.ArrayList;
@@ -14,11 +14,8 @@ import java.util.List;
 import javax.persistence.RollbackException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.Valid;
-import jdk.nashorn.internal.objects.NativeArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,7 +53,7 @@ public class UsuarioController {
     }
 
     @RequestMapping(value = "/update",
-            method = RequestMethod.POST)
+            method = RequestMethod.PUT)
     public UsuarioModel update(@RequestBody UsuarioModel usuario) throws Exception {
         try {
             if (usuario.getId() == 0) {
@@ -92,16 +89,15 @@ public class UsuarioController {
         return usuario;
     }
 
-    @RequestMapping(value = "/delete",
-            method = RequestMethod.DELETE)
-    public boolean delete(int uid) throws Exception {
+    @RequestMapping(value = "/getinfo",
+            method = RequestMethod.GET)
+    public UsuarioModel get(String matricula) throws Exception {
         try {
-            UsuarioModel usuario = usuarioRepository.findById(uid).get();
+            UsuarioModel usuario = usuarioRepository.findByUsuario(matricula);
             if (usuario == null) {
                 throw new Exception("Usuário não encontrado");
-            }
-            usuarioRepository.deleteById(uid);
-            return true;
+            }else
+                return usuario;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
@@ -120,13 +116,25 @@ public class UsuarioController {
     
     @RequestMapping(value = "/setores",
             method = RequestMethod.GET)
-    public List<Setores> getSetores(){
-        return Arrays.asList(Setores.values());
+    public List<Strin> getSetores(){
+        return Arrays.asList(Strin.values());
     }
     
     @RequestMapping(value = "/setor",
             method = RequestMethod.GET)
-    public String getSetorUsuario(String usuario){
-        return usuarioRepository.findByUsuario(usuario).getSetor().toString();
+    public String getSetorUsuario(String usuario) throws Exception{
+        UsuarioModel usuariomodel = usuarioRepository.findByUsuario(usuario);
+        if(usuariomodel != null)
+            if(usuariomodel.getSetor() != null)
+                return usuariomodel.getSetor();
+        
+        return "";
+    }
+    
+     @RequestMapping(value = "/solicitar",
+            method = RequestMethod.POST)
+    public boolean solicitarAcesso(@RequestBody UsuarioModel usuario){
+        
+        return true;
     }
 }

@@ -11,12 +11,12 @@ package com.telefonica.efikaauth.model;
  */
 public class Enuns {
     
-    public enum Setores{
+    public enum Strin{
         CheckList("Check List"),
         RALO("R.A.L.O");
         
         private String nome;
-        private Setores(String nomeFantasia){
+        private Strin(String nomeFantasia){
             nome = nomeFantasia;
         }
         
