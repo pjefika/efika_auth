@@ -37,4 +37,16 @@ public class ClusterController {
     public List<String> getCluster(@PathVariable("cidade") String cidade){
         return repository.cluster(cidade);
     }
+    
+    @RequestMapping(value = "/cidades/{cluster}",
+            method = RequestMethod.GET)
+    public List<String> getCidades(@PathVariable("cluster") String cluster){
+        return repository.cidades(cluster);
+    }
+    
+    @RequestMapping(value = "/cluster",
+            method = RequestMethod.GET)
+    public List<String> getCluster(){
+        return repository.cluster();
+    }
 }

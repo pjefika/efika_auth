@@ -20,4 +20,9 @@ public interface ClusterRepository extends CrudRepository<ClusterModel, Integer>
     List<String> cidades();
     @Query("select distinct u.cluster from ClusterModel u where u.cidade = ?1")
     List<String> cluster(String cidade);
+    
+    @Query("select distinct u.cidade from ClusterModel u where u.cluster = ?1")
+    List<String> cidades(String cluster);
+    @Query("select distinct u.cluster from ClusterModel u")
+    List<String> cluster();
 }
