@@ -25,9 +25,10 @@ public class SimpleCORSFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        System.out.println("SimpleCORSFilter");
+        //System.out.println("SimpleCORSFilter");
         //HttpServletResponse response = (HttpServletResponse) res;
-        ((HttpServletResponse) res).addHeader("Access-Control-Allow-Origin", "*");
+        if(!((HttpServletResponse) res).containsHeader("Access-Control-Allow-Origin"))
+            ((HttpServletResponse) res).addHeader("Access-Control-Allow-Origin", "*");/*((HttpServletRequest) req).getHeader("Origin"));//*/
         ((HttpServletResponse) res).addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         ((HttpServletResponse) res).addHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
         ((HttpServletResponse) res).addHeader("Access-Control-Allow-Credentials", "true");

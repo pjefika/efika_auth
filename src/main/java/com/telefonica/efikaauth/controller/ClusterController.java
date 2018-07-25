@@ -5,7 +5,9 @@
  */
 package com.telefonica.efikaauth.controller;
 
+import com.telefonica.efikaauth.model.ClusterModel;
 import com.telefonica.efikaauth.repository.ClusterRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -48,5 +51,18 @@ public class ClusterController {
             method = RequestMethod.GET)
     public List<String> getCluster(){
         return repository.cluster();
+    }
+    
+    @RequestMapping(value = "/sincroniza",
+            method = RequestMethod.GET)
+    public boolean sincronizaCluster() {
+        /*Iterable<ClusterModel> clusters = repository.findAll();
+        for (ClusterModel cluster : clusters) {
+            RestTemplate restTemplate = new RestTemplate();
+            List<ClusterModel> temp = new ArrayList<ClusterModel>();
+            temp.add(cluster);
+            restTemplate.postForLocation("http://localhost:8989/auth/sincronizacao/cluster", temp);
+        }*/
+        return true;
     }
 }
