@@ -34,7 +34,26 @@ public class SolicitacaoAcessoModel {
     private int usuario_id;
     @Temporal(TemporalType.TIMESTAMP)
     private Date data_solicitacao;
+    private String cidade;
+    private String cluster;
 
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getCluster() {
+        return cluster;
+    }
+
+    public void setCluster(String cluster) {
+        this.cluster = cluster;
+    }
+
+    
     public String getMatricula() {
         return matricula;
     }
