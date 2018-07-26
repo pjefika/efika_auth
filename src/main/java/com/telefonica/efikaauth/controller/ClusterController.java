@@ -56,13 +56,13 @@ public class ClusterController {
     @RequestMapping(value = "/sincroniza",
             method = RequestMethod.GET)
     public boolean sincronizaCluster() {
-        /*Iterable<ClusterModel> clusters = repository.findAll();
+        Iterable<ClusterModel> clusters = repository.findAll();
         for (ClusterModel cluster : clusters) {
             RestTemplate restTemplate = new RestTemplate();
             List<ClusterModel> temp = new ArrayList<ClusterModel>();
             temp.add(cluster);
-            restTemplate.postForLocation("http://localhost:8989/auth/sincronizacao/cluster", temp);
-        }*/
+            System.out.println(restTemplate.postForLocation("http://54.94.208.183:8084/auth/sincronizacao/cluster", temp));
+        }
         return true;
     }
 }
