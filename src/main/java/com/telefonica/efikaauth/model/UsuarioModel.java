@@ -84,7 +84,6 @@ public class UsuarioModel implements Serializable {
     public void setCriadoPor(int criadoPor) {
         this.criadoPor = criadoPor;
     }
-
     
     public String getTelefone() {
         return telefone;
