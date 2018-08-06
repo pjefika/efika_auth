@@ -48,9 +48,9 @@ public class AcaoController {
     @RequestMapping(value = "/list",
             method = RequestMethod.GET)
     public List<AcaoModel> list() throws Exception{
-        Iterable<AcaoModel> perfis = AcaoRepository.findAll();
+        Iterable<AcaoModel> acoes = AcaoRepository.findAll();
         List<AcaoModel> model = new ArrayList<AcaoModel>();
-        for (AcaoModel acao : perfis) {
+        for (AcaoModel acao : acoes) {
             model.add(acao);
         }
         return model;

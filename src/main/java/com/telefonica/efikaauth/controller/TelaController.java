@@ -48,9 +48,9 @@ public class TelaController {
     @RequestMapping(value = "/list",
             method = RequestMethod.GET)
     public List<TelaModel> list() throws Exception{
-        Iterable<TelaModel> perfis = TelaRepository.findAll();
+        Iterable<TelaModel> telas = TelaRepository.findAll();
         List<TelaModel> model = new ArrayList<TelaModel>();
-        for (TelaModel tela : perfis) {
+        for (TelaModel tela : telas) {
             model.add(tela);
         }
         return model;
