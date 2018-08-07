@@ -6,7 +6,6 @@
 package com.telefonica.efikaauth.controller;
 
 import com.telefonica.efikaauth.model.TelaModel;
-import com.telefonica.efikaauth.model.TelaModel;
 import com.telefonica.efikaauth.repository.TelaRepository;
 import java.util.ArrayList;
 import java.util.List;

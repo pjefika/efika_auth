@@ -5,8 +5,7 @@
  */
 package com.telefonica.efikaauth.controller;
 
-import com.telefonica.efikaauth.model.AcaoModel;
-import com.telefonica.efikaauth.model.AcaoModel;
+import com.telefonica.efikaauth.model.AcaoTelaModel;
 import com.telefonica.efikaauth.repository.AcaoRepository;
 import java.util.ArrayList;
 import java.util.List;
