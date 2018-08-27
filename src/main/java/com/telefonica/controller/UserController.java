@@ -110,13 +110,13 @@ public class UserController {
     @PutMapping(value = "/user")
     public ResponseEntity update(@RequestBody User user){
         try{
-            User gExists = userDao.findById(user.getId()).get();
-            if(gExists == null){
-                eReturn = new HashMap<>();
-                eReturn.put("code", 400);
-                eReturn.put("msg", "Este usuário não foi localizado !");
-                return new ResponseEntity(eReturn, HttpStatus.BAD_REQUEST);
-            }
+//            User gExists = userDao.findById(user.getId()).get();
+//            if(gExists == null){
+//                eReturn = new HashMap<>();
+//                eReturn.put("code", 400);
+//                eReturn.put("msg", "Este usuário não foi localizado !");
+//                return new ResponseEntity(eReturn, HttpStatus.BAD_REQUEST);
+//            }
             List<Group> fGroups = new ArrayList<>();
             for (Group group : user.getGroups()){
                 Group eGroup = groupDao.findByName(group.getName());
