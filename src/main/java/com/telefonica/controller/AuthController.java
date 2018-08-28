@@ -48,7 +48,7 @@ public class AuthController {
 //                    eReturn = new HashMap<>();
 //                    eReturn.put("code", 404);
 //                    eReturn.put("msg", "Não achou nenhum operador !");
-                    return new ResponseEntity(false, HttpStatus.OK);
+                    return new ResponseEntity(new User(), HttpStatus.OK);
                 }else{
                     User nNUser = new User();
                     nNUser.setName(oUser.getGpProviderName());
