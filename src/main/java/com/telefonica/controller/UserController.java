@@ -90,9 +90,21 @@ public class UserController {
             user.setDateUpdated(new Date());
             user.setUpdated(true);
             user.setCreator(1);
-            User sGroup = userDao.save(user);
-            if(sGroup != null){
-                return new ResponseEntity(sGroup, HttpStatus.CREATED);
+            User sUser = userDao.save(user);
+            if(sUser != null){
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("username", user.getMatricula());
+                map.put("password", user.getPassword());
+                JSONObject login = new JSONObject(map);
+                //HttpResponse<JsonNode> jsonResponse = Unirest.post("http://localhost:8080/logar")
+                HttpResponse<JsonNode> jsonResponse = Unirest.post("http://10.40.196.172:9001/efika/logar")
+                        .header("Content-Type", "application/json")
+                        .body(login)
+                        .asJson();
+                eReturn = new HashMap<>();
+                eReturn.put("user", sUser);
+                eReturn.put("token", jsonResponse.getHeaders().get("Authorization"));
+                return new ResponseEntity(sUser, HttpStatus.CREATED);
             }else{
                 eReturn = new HashMap<>();
                 eReturn.put("code", 400);
@@ -137,21 +149,7 @@ public class UserController {
             user.setUpdated(true);
             User sUser = userDao.save(user);
             if(sUser != null){
-
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("username", user.getMatricula());
-                map.put("password", user.getPassword());
-                JSONObject login = new JSONObject(map);
-                //HttpResponse<JsonNode> jsonResponse = Unirest.post("http://localhost:8080/logar")
-                HttpResponse<JsonNode> jsonResponse = Unirest.post("http://10.40.196.172:9001/efika/logar")
-                        .header("Content-Type", "application/json")
-                        .body(login)
-                        .asJson();
-                eReturn = new HashMap<>();
-                eReturn.put("user", sUser);
-                eReturn.put("token", jsonResponse.getHeaders().get("Authorization"));
-                //Authentication auth = new AccountAuthentication().authenticate((Authentication) accountCredentials);
-                return new ResponseEntity(eReturn, HttpStatus.OK);
+                return new ResponseEntity(sUser, HttpStatus.OK);
             }else{
                 eReturn = new HashMap<>();
                 eReturn.put("code", 400);
