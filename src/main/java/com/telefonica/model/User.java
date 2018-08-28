@@ -34,6 +34,8 @@ public class User {
     private Date dateBorn;
     private String password;
     private String sector;
+    private String cidade;
+    private String cluster;
     @JsonIgnore
     private Set<UserProfile> profiles;
     @JsonIgnore
@@ -177,6 +179,22 @@ public class User {
         this.groups = groups;
     }
 
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getCluster() {
+        return cluster;
+    }
+
+    public void setCluster(String cluster) {
+        this.cluster = cluster;
+    }
+
     //endregion
 
     //region OVERRIDE
@@ -192,6 +210,8 @@ public class User {
         sb.append(", dateBorn=").append(dateBorn);
         sb.append(", password='").append(password).append('\'');
         sb.append(", sector='").append(sector).append('\'');
+        sb.append(", cidade='").append(cidade).append('\'');
+        sb.append(", cluster='").append(cluster).append('\'');
         sb.append(", profiles=").append(profiles);
         sb.append(", isUpdated=").append(isUpdated);
         sb.append(", phone='").append(phone).append('\'');

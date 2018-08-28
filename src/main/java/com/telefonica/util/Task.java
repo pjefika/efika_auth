@@ -6,6 +6,7 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.telefonica.dao.UserDao;
 import com.telefonica.model.User;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -32,18 +33,25 @@ public class Task {
 
     @Autowired private UserDao userDao;
 
-    @Scheduled(fixedDelay = 5000)
+    //@Scheduled(fixedDelay = 5000)
     public void sincronizaAws(){
         System.out.println("Oi - " + new Date());
-        List<User> users = userDao.findAllByIsUpdated(false);
-        System.out.println(users);
+        //List<User> users = userDao.findAllByIsUpdated(false);
+        //System.out.println(users);
 
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("users", users);
+        //HashMap<String, Object> map = new HashMap<>();
+        //map.put("users", users);
         try {
-            HttpResponse<JsonNode> jsonResponse = Unirest.post("http://localhost:8181/user-sync/index.php")
+            List<User> userToSync = userDao.findAllByIsUpdated(true);
+            JSONArray jUsers = new JSONArray(userToSync);
+            HttpResponse<JsonNode> jsonResponse = Unirest.post("http://localhost:9090/sync/efika/users")
                     .header("Content-Type", "application/json")
-                    .body(map)
+                    .body(jUsers)
+                    .asJson();
+            System.out.println(jsonResponse.getBody());
+
+            jsonResponse = Unirest.post("http://localhost:9090/sync/mongo/teste")
+                    .header("Content-Type", "application/json")
                     .asJson();
 
             JSONObject jArray = new JSONObject(jsonResponse.getBody().toString());
@@ -55,12 +63,27 @@ public class Task {
             }
 
             nUsers.stream().forEach(user -> {
-                User sUser = userDao.save(user);
-                if(sUser != null){
+                User fUser = userDao.findByMatricula(user.getMatricula());
+                if(fUser != null){
+                    if(fUser.getDateUpdated().getTime() < user.getDateUpdated().getTime()){
+                        User sUser = userDao.save(user);
+                        if(sUser != null){
 
-                }else{
+                        }else{
 
+                        }
+                    }else{
+                        //TODO: Usuario da nossa base é mais atualizado
+                    }
+                    //TODO: Usuario nao existe na nossa base
+                    User sUser = userDao.save(user);
+                    if(sUser != null){
+                        //
+                    }else{
+
+                    }
                 }
+
             });
         }catch (Exception e){
             e.printStackTrace();
