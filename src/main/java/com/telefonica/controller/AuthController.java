@@ -45,10 +45,10 @@ public class AuthController {
                 System.out.println("Vai acessar outro banco !!");
                 OldUser oUser = oldUserDao.findByGpExternalId(user.getMatricula());
                 if(oUser == null){
-                    eReturn = new HashMap<>();
-                    eReturn.put("code", 404);
-                    eReturn.put("msg", "Não achou nenhum operador !");
-                    return new ResponseEntity(eReturn, HttpStatus.NOT_FOUND);
+//                    eReturn = new HashMap<>();
+//                    eReturn.put("code", 404);
+//                    eReturn.put("msg", "Não achou nenhum operador !");
+                    return new ResponseEntity(false, HttpStatus.OK);
                 }else{
                     User nNUser = new User();
                     nNUser.setName(oUser.getGpProviderName());
