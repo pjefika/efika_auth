@@ -196,9 +196,9 @@ public class UserController {
                 fUser.setPassword(user.getPassword());
                 User sUser = userDao.save(fUser);
                 if(sUser != null){
-                    return new ResponseEntity(sUser, HttpStatus.OK);
+                    return new ResponseEntity(true, HttpStatus.OK);
                 }else{
-                    return new ResponseEntity(new User(), HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity(false, HttpStatus.BAD_REQUEST);
                 }
             }else{
                 eReturn = new HashMap<>();
