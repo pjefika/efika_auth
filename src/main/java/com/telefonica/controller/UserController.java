@@ -193,7 +193,8 @@ public class UserController {
         try{
             User fUser = userDao.findByMatriculaAndCpf(user.getMatricula(), user.getCpf());
             if(fUser != null){
-                User sUser = userDao.save(user);
+                fUser.setPassword(user.getPassword());
+                User sUser = userDao.save(fUser);
                 if(sUser != null){
                     return new ResponseEntity(sUser, HttpStatus.OK);
                 }else{
