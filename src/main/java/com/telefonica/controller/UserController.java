@@ -97,7 +97,7 @@ public class UserController {
                 map.put("password", user.getPassword());
                 JSONObject login = new JSONObject(map);
                 //HttpResponse<JsonNode> jsonResponse = Unirest.post("http://localhost:8080/logar")
-                HttpResponse<JsonNode> jsonResponse = Unirest.post("http://10.40.196.172:9001/efika/logar")
+                HttpResponse<JsonNode> jsonResponse = Unirest.post("http://127.0.0.1:9001/efika/logar")
                         .header("Content-Type", "application/json")
                         .body(login)
                         .asJson();
@@ -180,6 +180,31 @@ public class UserController {
             eReturn.put("code", 200);
             eReturn.put("msg", "Usuário removido com sucesso !");
             return new ResponseEntity(eReturn, HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            eReturn = new HashMap<>();
+            eReturn.put("code", 500);
+            eReturn.put("msg", e.getMessage());
+            return new ResponseEntity(eReturn, HttpStatus.BAD_GATEWAY);
+        }
+    }
+
+    @PutMapping(value = "/user/password")
+    public ResponseEntity password(@RequestBody User user){
+        try{
+            User fUser = userDao.findByMatriculaAndCpf(user.getMatricula(), user.getCpf());
+            if(fUser != null){
+                User sUser = userDao.save(user);
+                if(sUser != null){
+                    return new ResponseEntity(sUser, HttpStatus.OK);
+                }else{
+                    return new ResponseEntity(new User(), HttpStatus.BAD_REQUEST);
+                }
+            }else{
+                eReturn = new HashMap<>();
+                eReturn.put("code", 404);
+                eReturn.put("msg", "Usuário não localizado !");
+                return new ResponseEntity(eReturn, HttpStatus.NOT_FOUND);
+            }
         }catch (Exception e){
             eReturn = new HashMap<>();
             eReturn.put("code", 500);

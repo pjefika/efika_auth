@@ -31,6 +31,7 @@ public class JsonToMongo {
     @Autowired
     private OldUserDao oldUserDao;
 
+    /*
     @GetMapping(value = "/convert")
     public ResponseEntity convert(){
         File folder = new File("C:\\Users\\A0079821\\Desktop\\json");
@@ -73,6 +74,6 @@ public class JsonToMongo {
 
         return new ResponseEntity("Concluído", HttpStatus.OK);
     }
-
+    */
 
 }

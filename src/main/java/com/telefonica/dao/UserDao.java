@@ -19,4 +19,6 @@ public interface UserDao extends MongoRepository<User, String> {
     User findByMatricula(String matricula);
 
     List<User> findAllByIsUpdated(Boolean active);
+
+    User findByMatriculaAndCpf(String matricula, String cpf);
 }
