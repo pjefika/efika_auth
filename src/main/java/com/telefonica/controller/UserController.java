@@ -96,8 +96,8 @@ public class UserController {
                 map.put("username", user.getMatricula());
                 map.put("password", user.getPassword());
                 JSONObject login = new JSONObject(map);
-                //HttpResponse<JsonNode> jsonResponse = Unirest.post("http://localhost:8080/logar")
-                HttpResponse<JsonNode> jsonResponse = Unirest.post("http://127.0.0.1:9001/efika/logar")
+                HttpResponse<JsonNode> jsonResponse = Unirest.post("http://localhost:8080/logar")
+                //HttpResponse<JsonNode> jsonResponse = Unirest.post("http://127.0.0.1:9001/efika/logar")
                         .header("Content-Type", "application/json")
                         .body(login)
                         .asJson();

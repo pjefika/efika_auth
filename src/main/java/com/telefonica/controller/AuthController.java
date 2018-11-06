@@ -31,7 +31,10 @@ public class AuthController {
     @PostMapping(value = "/verify")
     public ResponseEntity login(@RequestBody User user){
         try {
-            User nUser = userDao.findByMatriculaAndPassword(user.getMatricula(), user.getPassword());
+            User nUser = userDao.findByMatriculaAndPassword(user.getMatricula().toUpperCase(), user.getPassword());
+            if(nUser == null){
+                nUser = userDao.findByMatriculaAndPassword(user.getMatricula(), user.getPassword());
+            }
             if (nUser != null) {
                 return new ResponseEntity(nUser, HttpStatus.OK);
             } else {
@@ -44,6 +47,9 @@ public class AuthController {
                 }
                 System.out.println("Vai acessar outro banco !!");
                 OldUser oUser = oldUserDao.findByGpExternalId(user.getMatricula());
+                if(oUser == null){
+                    oUser = oldUserDao.findByGpExternalId(user.getMatricula().toUpperCase());
+                }
                 if(oUser == null){
 //                    eReturn = new HashMap<>();
 //                    eReturn.put("code", 404);
